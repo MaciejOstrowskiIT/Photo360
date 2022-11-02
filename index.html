@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <meta charset="UTF-8" />
+    <title>LED Control</title>
+    <style>
+      html {
+        font-family: Helvetica;
+        display: inline-block;
+        margin: 0px auto;
+        text-align: center;
+      }
+      body {
+        margin-top: 50px;
+      }
+      h1 {
+        color: #444444;
+        margin: 50px auto 30px;
+      }
+      h1 {
+        color: #444444;
+        margin-bottom: 50px;
+      }
+      .button {
+        display: block;
+        width: 80px;
+        background-color: #1abc9c;
+        border: none;
+        color: white;
+        padding: 13px 30px;
+        text-decoration: none;
+        font-size: 25px;
+        margin: 0px auto 35px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      .button-on:active {
+        background-color: #16a085;
+      }
+
+      .button-off:active {
+        background-color: #2c3e50;
+      }
+      p {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 10px;
+      }
+      .clicked {
+        pointer-events: none;
+        background-color: #2c3e50;
+      }
+      input[type="checkbox"] {
+        background-color: #1abc9c;
+        appearance: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Pano360</h1>
+    <h3>Panel sterowania</h3>
+    <form action="" method="post">
+      <p>Wybierz kierunek obrotu:</p>
+      <label for="left-radio">Lewo</label>
+      <input
+        id="left-radio"
+        type="radio"
+        value="left"
+        checked
+        name="direction"
+      />
+      <label for="right-radio">Prawo</label>
+      <input id="right-radio" type="radio" value="right" name="direction" />
+      <p>Ustaw prędkość:</p>
+      <input
+        type="range"
+        min="1"
+        max="10"
+        oninput="this.nextElementSibling.value = this.value"
+        id="range-value"
+      />
+      <output style="display: block">6</output>
+
+      <p>Włączyć LED?</p>
+      <label for="led-yes">Tak</label>
+      <input type="radio" name="led" id="led-yes" value="led-on" checked />
+      <label for="led-no">Nie</label>
+      <input type="radio" name="led" id="led-no" value="led-off" />
+      <p></p>
+      <button type="submit">START</button>
+    </form>
+
+    <script defer>
+      const getRangeInput = document.querySelector("input[type='range']");
+
+      // getRangeInput.addEventListener("change", (e) => {
+      //   console.log(e.target.value);
+      // });
+
+      const getButton = document.querySelectorAll(".button");
+
+      Array.from(getButton).forEach((element) => {
+        element.addEventListener("click", () =>
+          element.classList.contains("clicked")
+            ? element.classList.remove("clicked")
+            : element.classList.add("clicked")
+        );
+      });
+
+      document.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        let x = document.querySelector("form").elements;
+        console.log(x["direction"].value);
+        console.log(x["led"].value);
+        console.log(x["range-value"].value);
+      });
+    </script>
+  </body>
+</html>
